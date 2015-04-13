@@ -1,0 +1,10 @@
+{
+  "gitbook": ">=2.0.0",
+  "title": "Rust语言学习笔记",
+  "description": "",
+  "language": "zh-cn",
+  "direction": "ltr",
+  "variables": {
+    
+  }
+}

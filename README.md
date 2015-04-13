@@ -1,2 +1,1 @@
-# rust-notes
-Notes on the Rust Programming Language
+## Rust语言学习笔记
