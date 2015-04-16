@@ -28,4 +28,33 @@ $ cargo new hello-world --bin
 
 在项目目录下，Cargo还生成了一个[TOML](https://github.com/toml-lang/toml)格式的配置文件`Cargo.toml`，其功能类似于Node.js中的`package.json`。
 
+Cargo自动生成的`src/main.rs`代码：
+
+```rust
+fn main() {
+    println!("Hello, world!");
+}
+```
+
+其中`println!`是一个宏 (macro)，在Rust中宏通常是以`!`结尾。
+
+使用Cargo编译项目非常简单：
+
+```shell
+$ cargo build
+```
+如果需要编译并执行，使用`cargo run`命令就可以了。如果需要发布项目，应该使用`--release`选项：
+
+```shell
+$ cargo build --release
+```
+
+为了实现打印当前时间的功能，我们需要在`Cargo.toml`中添加`time`依赖：
+
+```toml
+[dependencies]
+time = "0.1.24"
+```
+再运行`cargo build`，Cargo会自动处理库的依赖关系。
+
 ### 代码规范
