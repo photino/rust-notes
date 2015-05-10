@@ -1,5 +1,5 @@
 {
-  "gitbook": ">=2.0.0",
+  "gitbook": "2.0.1",
   "title": "Rust语言学习笔记",
   "description": "",
   "language": "zh-cn",

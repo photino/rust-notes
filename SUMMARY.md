@@ -5,3 +5,6 @@
 * [控制结构](control-structures.md)
 * [模块系统](module-system.md)
 * [程序测试](program-testing.md)
+* [内存安全](memory-safety.md)
+* [编程范式](programming-paradigm.md)
+* [高级主题](advanced-topics.md)

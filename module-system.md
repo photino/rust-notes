@@ -1,13 +1,9 @@
 ## 模块系统
 
-Rust有两个与模块系统相关的独特术语：`crate`和`module`，
+Rust有两个与模块 (module) 系统相关的独特术语：`crate`和`module`，
 其中`crate`与其它语言中的 libary 或者 package 作用一样。
 每个`crate`都有一个隐藏的根模块，在根模块下可以定义一个子模块树，
-其路径采用`::`作为分隔符。
-
-在Rust中，`crate`是由条目 (item) 构成的，每个条目都可以有附加的属性 (attribute)。
-多个条目就是通过模块 (module) 组织在一起的。
-
+其路径采用`::`作为分隔符。`crate`由条目 (item) 构成，多个条目通过模块组织在一起。
 
 ### 定义模块
 
@@ -37,7 +33,7 @@ mod english {
 }
 ```
 定义了四个子模块`chinese::{greetings, farewells}`和`english::{greetings, farewells}`。
-模块默认是私有的，为了使其公有需要`pub`关键字。
+模块默认是私有的，可以使用`pub`关键字将其设置成公开，只有公开的条目才允许在模块外部访问。
 
 实践中更好的组织方式是将一个`crate`分拆到多个文件：
 
@@ -83,7 +79,7 @@ pub fn goodbye() -> String {
     "Goodbye!".to_string()
 }
 ```
-函数默认也是私有的，为了后面的使用我们需要`pub`关键字使其成为共有。
+函数默认也是私有的，为了后面的使用我们需要`pub`关键字使其成为公有。
 
 ### 导入 crate
 
@@ -120,7 +116,11 @@ fn main() {
 ```rust
 use phrases::chinese::{greetings, farewells};
 ```
-如果是导入全部，可以使用通配符`*`，一般不推荐这么做。
+如果是导入全部，可以使用通配符`*`。重命名可以使用`as`关键字：
+
+```rust
+use phrases::chinese::greetings as chinese_greetings;
+```
 
 有时我们需要将外部`crate`里面的函数导入到另一个模块内，
 这时可以使用`pub use`来提供扩展接口而不映射代码层级结构。
@@ -163,4 +163,24 @@ mod foo {
     }
 }
 ```
+
+### 属性
+
+在Rust中，属性 (attribute) 是应用于`crate`、模块或者条目的元数据 (metadata)，
+主要用于：
+
+* 实现条件编译 (conditional compilation)
+* 设置`crate`名字、版本以及类型
+* 取消可疑代码的警告
+* 设置编译器选项
+* 链接外部库
+* 标记测试函数
+
+属性有两种语法：`#![crate_attribute]`应用于整个`crate`，
+而`#[crate_attribute]`应用于紧邻的一个模块或者条目。
+属性的参数也有三种不同的形式：
+
+* `#[attribute = "value"]`
+* `#[attribute(key = "value")]`
+* `#[attribute(value)]`
 

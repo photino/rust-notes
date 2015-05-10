@@ -3,8 +3,8 @@
 ### If
 
 If是分支 (branch) 的一种特殊形式，也可以使用`else`和`else if`。
-和通常编程语言显著不同的是，Rust中的`if`是一个表达式 (expression)，
-可以赋给一个变量：
+与C语言不同的是，逻辑条件不需要用小括号括起来，但是条件后面必须跟一个代码块。
+Rust中的`if`是一个表达式 (expression)，可以赋给一个变量：
 
 ```rust
 let x = 5;
@@ -13,6 +13,7 @@ let y = if x == 5 { 10 } else { 15 };
 ```
 
 Rust是基于表达式的编程语言，有且仅有两种语句 (statement)：
+
 1. **声明语句** (declaration statement)，比如进行变量绑定的`let`语句。
 2. **表达式语句** (expression statement)，它通过在末尾加上分号`;`来将表达式变成语句，
 丢弃该表达式的值，一律返回元类型`()`。
@@ -41,7 +42,22 @@ for var in expression {
 
 Rust中的`while`循环与C语言中的类似。如果要提前退出循环，
 可以使用关键字`break`或者`continue`，它们也同样适用于`for`循环。
-对于无限循环，Rust有一个专用的关键字`loop`。
+对于无限循环，Rust有一个专用的关键字`loop`，允许在循环语句开头设定标签：
+
+```rust
+'outer: loop {
+   println!("Entered the outer loop");
+
+   'inner: loop {
+       println!("Entered the inner loop");
+       break 'outer;
+   }
+
+   println!("This point will never be reached");
+}
+
+println!("Exited the outer loop");
+```
 
 ### Match
 

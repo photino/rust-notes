@@ -15,8 +15,9 @@ Rust还通过模式匹配 (pattern matching) 对变量进行解构，这允许�
 
 有几点是需要特别注意的：
 * 变量默认是不可改变的 (immutable)，如果需要改变一个变量的值需要显式加上`mut`关键字。
+* 变量具有局部作用域，被限制在所属的代码块内，并且允许变量屏蔽 (variable shadowing)。
 * Rust编译器默认开启属性`#[warn(unused_variable)]`，会对没有使用的变量发出警告。
-* 使用未被初始化的变量是绝对禁止的，会产生一个编译时错误。
+* Rust允许先声明变量然后再初始化，但是使用未被初始化的变量会产生一个编译时错误。
 
 ### 基本类型
 
@@ -35,7 +36,7 @@ Rust内置的基本类型 (primitive types) 有以下几类：
 * 元组结构体：由元组和结构体混合构成，元组结构体有名称，但是它的域没有。
 * 枚举：对于一个指定的名称有一组可替代的值，其中子数据结构可以存储也可以不存储数据。
 * 函数：具有函数类型的变量实质上是一个函数指针。
-* 元类型：即`()`，只有一个值`()`。
+* 元类型：即`()`，其唯一的值也是`()`。
 
 ```rust
 // boolean type
@@ -83,6 +84,10 @@ struct Inches(i32);
 let length = Inches(10);
 let Inches(integer_length) = length;
 
+// unit structs
+struct Null;
+let empty = Null;
+
 // enums
 enum Character {
     Digit(i32),
@@ -96,6 +101,7 @@ let bar: fn(i32) -> i32 = foo;
 ```
 
 有几点是需要特别注意的：
+
 * 数值类型可以使用`_`分隔符来增加可读性。
 * Rust还支持单字节字符`b'H'`以及单字节字符串`b"Hello"`，仅限制于ASCII字符。 
 此外，还可以使用`r#"..."#`标记来表示原始字符串，不需要对特殊字符进行转义。
@@ -103,6 +109,20 @@ let bar: fn(i32) -> i32 = foo;
 但是使用`to_string()`方法将`&str`转换到`String`类型涉及到分配内存，
 除非很有必要否则不要这么做。
 * 元组可以使用`==`运算符来判断是否相同，但是结构体和枚举不可以。
+* 结构体的域默认是私有的，可以使用`pub`关键字将其设置成公开。
+* Rust不提供基本类型之间的隐式转换，只能使用`as`关键字显式转换。
+* 可以使用`type`关键字定义某个类型的别名，并且应该采用骆驼命名法。
+
+```rust
+// explicit conversion
+let decimal = 65.4321_f32;
+let integer = decimal as u8;
+let character = integer as char;
+
+// type aliases
+type NanoSecond = u64;
+type Point = (u8, u8);
+```
 
 ### 函数
 
@@ -113,7 +133,8 @@ fn add_one(x: i32) -> i32 {
 }
 ```
 其中函数参数的类型不能省略，可以有多个参数，但是最多只能返回一个值，
-提前返回使用`return`关键字。
+提前返回使用`return`关键字。Rust编译器会对未使用的函数提出警告，
+可以使用属性`#[allow(dead_code)]`禁用无效代码检查。
 
 Rust有一个特殊语法适用于分叉函数 (diverging function)，它不返回值：
 
@@ -135,6 +156,6 @@ Rust有三种注释：
 * 行注释 (line comments)：以`//`开头，仅能注释一行。
 * 块注释 (block comments)：以`/*`开头，以`*/`结尾，能注释多行，但是不建议使用。
 * 文档注释 (doc comments)：以`///`或者`//!`开头，支持Markdown标记语言，
-其中`///`等价于写属性`#[doc="..."]`，`//!`等价于`#![doc="/// ..."]`，
-配合`rustdoc`工具用于自动生成说明文档。
+其中`///`等价于写属性`#[doc = "..."]`，`//!`等价于`#![doc = "/// ..."]`，
+配合`rustdoc`可自动生成说明文档。
 

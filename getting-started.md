@@ -50,6 +50,40 @@ $ cargo build
 ```shell
 $ cargo build --release
 ```
+在Rust中解决依赖性相当容易，只需要在`Cargo.toml`中添加`[dependencies]`字典：
+
+```toml
+[package]
+name = "hello-world"
+version = "0.0.1"
+authors = ["Your Name &lt;someone@example.com&gt;"]
+
+[dependencies]
+semver = "0.1.19"
+```
+这里的`semver`库主要负责按语义化版本规范来匹配版本号：
+
+```rust
+// in src/main.rs
+
+extern crate semver;
+
+use semver::Version;
+use semver::Identifier::{AlphaNumeric, Numeric};
+
+fn main() {
+    assert!(Version::parse("1.2.3-alpha.2") == Ok(Version {
+        major: 1u64,
+        minor: 2u64,
+        patch: 3u64,
+        pre: vec!(AlphaNumeric("alpha".to_string()), Numeric(2)),
+        build: vec!(),
+    }));
+
+    println!("Versions compared successfully!");
+}
+```
+
 ### 代码规范
 
 可以参考[Rust风格指南](https://github.com/rust-lang/rust-guidelines)，
