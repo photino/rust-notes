@@ -6,9 +6,9 @@
 
 ```rust
 let x = 5;
-let mut x = 5;
-let x: i32 = 5;
-let (x, y) = (3, 4);
+let mut y = 5;
+let z: i32 = 5;
+let (a, b) = (3, 4);
 ```
 其中变量类型如`i32`一般都是可以省略的，因为Rust使用了类型推断 (type inference)。
 Rust还通过模式匹配 (pattern matching) 对变量进行解构，这允许我们同时对多个变量进行赋值。
