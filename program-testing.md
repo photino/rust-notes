@@ -73,3 +73,43 @@ pub fn add_two(a: i32) -> i32 {
 }
 ````
 
+### 错误处理
+
+Rust明确区分两种形式的错误：失败 (failture) 和恐慌 (panic)。
+失败是可以通过某种方式恢复的错误，而恐慌（panic）则不能够恢复。
+
+最简单的表明函数会失败的方法是使用`Option<T>`类型：
+
+```rust
+fn from_str<A: FromStr>(s: &str) -> Option<A> {
+
+}
+```
+其中`from_str()`返回一个`Option<A>`。如果转换成功，它会返回`Some(value)`；
+如果失败，直接返回`None`。对于需要提供出错信息的情形，可以使用`Result<T, E>`类型：
+
+```rust
+enum Result<T, E> {
+    Ok(T),
+    Err(E),
+}
+```
+
+如果不想处理错误，可以使用`unwrap()`方法来产生恐慌：
+
+```rust
+let mut buffer = String::new();
+let input = io::stdin().read_line(&mut buffer).unwrap();
+```
+当`Result`是`Err`时，`unwrap()`会`panic!`，直接退出程序。另一个更好的做法是：
+
+```rust
+let input = io::stdin().read_line(&mut buffer)
+                       .ok()
+                       .expect("Failed to read line");
+```
+其中`ok()`将`Result`转换为`Option`，`expect()`和`unwrap()`功能类似，
+可以用来提供更多的错误信息。
+
+此外，还可以使用宏`try!`来封装表达式，当`Result`是`Err`时会从当前函数提早返回`Err`。
+

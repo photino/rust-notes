@@ -46,7 +46,8 @@ fn main() {
 ```shell
 $ cargo build
 ```
-如果需要编译并执行，使用`cargo run`命令就可以了。如果需要发布项目，应该使用`--release`选项：
+如果需要编译并执行，可以使用`cargo run`命令。如果需要发布项目，
+应该使用`--release`选项开启优化：
 
 ```shell
 $ cargo build --release
@@ -54,11 +55,6 @@ $ cargo build --release
 在Rust中解决依赖性相当容易，只需要在`Cargo.toml`中添加`[dependencies]`字典：
 
 ```toml
-[package]
-name = "hello-world"
-version = "0.0.1"
-authors = ["Your Name &lt;someone@example.com&gt;"]
-
 [dependencies]
 semver = "0.1.19"
 ```
@@ -84,6 +80,7 @@ fn main() {
     println!("Versions compared successfully!");
 }
 ```
+其中函数`Ok()`来自于`std::result::Result`，通过`std::prelude`模块被预先导入。
 
 ### 代码规范
 

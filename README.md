@@ -16,3 +16,8 @@
 * [The Rust Programming Language](http://doc.rust-lang.org/1.0.0-beta.4/book/)
 * [The Rust Reference](http://doc.rust-lang.org/1.0.0-beta.4/reference.html)
 * [Rust by Example](http://rustbyexample.com/)
+
+### 项目地址
+
+* [https://github.com/photino/rust-notes](https://github.com/photino/rust-notes)
+* [http://photino.gitbooks.io/rust-notes](http://photino.gitbooks.io/rust-notes)
