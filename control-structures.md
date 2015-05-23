@@ -37,13 +37,14 @@ for var in expression {
     code
 }
 ```
-其中`expression`是一个迭代器 (iterator)，具体的例子为`0..10`，或者`[0, 1, 2].iter()`。
+其中`expression`是一个迭代器 (iterator)，具体的例子为`0..10` (不包含最后一个值)，
+或者`[0, 1, 2].iter()`。
 
 ### While
 
-Rust中的`while`循环与C语言中的类似。如果要提前退出循环，
-可以使用关键字`break`或者`continue`，它们也同样适用于`for`循环。
-对于无限循环，Rust有一个专用的关键字`loop`，允许在循环语句开头设定标签：
+Rust中的`while`循环与C语言中的类似。对于无限循环，Rust有一个专用的关键字`loop`。
+如果需要提前退出循环，可以使用关键字`break`或者`continue`，
+还允许在循环的开头设定标签 (同样适用于`for`循环)：
 
 ```rust
 'outer: loop {
@@ -73,10 +74,9 @@ match day {
   _ => println!("invalid"),
 }
 ```
-其中`|`用于匹配多个值，`...`匹配一个范围，并且`_`在这里是必须的，
-因为`match`强制进行穷尽性检查 (exhaustiveness checking)，
-必须覆盖所有的可能值。如果需要得到`|`或者`...`匹配到的值，
-可以使用`@`绑定变量：
+其中`|`用于匹配多个值，`...`匹配一个范围 (包含最后一个值)，并且`_`在这里是必须的，
+因为`match`强制进行穷尽性检查 (exhaustiveness checking)，必须覆盖所有的可能值。
+如果需要得到`|`或者`...`匹配到的值，可以使用`@`绑定变量：
 
 ```rust
 let x = 1;
@@ -117,7 +117,7 @@ match pair {
 ```
 
 `match`的这种解构同样适用于结构体或者枚举。如果有必要，
-还可以使用`..`来忽略属性或者数据：
+还可以使用`..`来忽略域或者数据：
 
 ```rust
 struct Point {
@@ -125,17 +125,18 @@ struct Point {
     y: i32,
 }
 
+let origin = Point { x: 0, y: 0 };
+
+match origin {
+    Point { x: x, .. } => println!("x is {}", x),
+}
+
 enum OptionalInt {
     Value(i32),
     Missing,
 }
 
-let origin = Point { x: 0, y: 0 };
 let x = OptionalInt::Value(5);
-
-match origin {
-    Point { x: x, .. } => println!("x is {}", x),
-}
 
 match x {
     OptionalInt::Value(i) if i > 5 => println!("Got an int bigger than five!"),

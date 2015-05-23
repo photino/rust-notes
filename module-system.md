@@ -1,9 +1,9 @@
 ## 模块系统
 
 Rust有两个与模块 (module) 系统相关的独特术语：`crate`和`module`，
-其中`crate`与其它语言中的 libary 或者 package 作用一样。
-每个`crate`都有一个隐藏的根模块，在根模块下可以定义一个子模块树，
-其路径采用`::`作为分隔符。`crate`由条目 (item) 构成，多个条目通过模块组织在一起。
+其中包装箱 (crate) 与其它语言中的 libary 或者 package 作用一样。
+每个包装箱都有一个隐藏的根模块，在根模块下可以定义一个子模块树，
+其路径采用`::`作为分隔符。包装箱由条目 (item) 构成，多个条目通过模块组织在一起。
 
 ### 定义模块
 
@@ -35,7 +35,7 @@ mod english {
 定义了四个子模块`chinese::{greetings, farewells}`和`english::{greetings, farewells}`。
 模块默认是私有的，可以使用`pub`关键字将其设置成公开，只有公开的条目才允许在模块外部访问。
 
-实践中更好的组织方式是将一个`crate`分拆到多个文件：
+实践中更好的组织方式是将一个包装箱分拆到多个文件：
 
 ```rust
 // in src/lib.rs
@@ -83,7 +83,7 @@ pub fn goodbye() -> String {
 
 ### 导入 crate
 
-为了使用我们前面创建的名为`phrases`的`crate`，需要先声明导入
+为了使用我们前面创建的名为`phrases`的包装箱，需要先声明导入
 
 ```rust
 // in src/main.rs
@@ -95,7 +95,7 @@ fn main() {
 }
 ```
 
-Rust还有一个`use`关键字，允许我们导入`crate`中的条目到当前的作用域内：
+Rust还有一个`use`关键字，允许我们导入包装箱中的条目到当前的作用域内：
 
 ```rust
 // in src/main.rs
@@ -122,7 +122,7 @@ use phrases::chinese::{greetings, farewells};
 use phrases::chinese::greetings as chinese_greetings;
 ```
 
-有时我们需要将外部`crate`里面的函数导入到另一个模块内，
+有时我们需要将外部包装箱里面的函数导入到另一个模块内，
 这时可以使用`pub use`来提供扩展接口而不映射代码层级结构。
 比如
 
@@ -142,9 +142,9 @@ mod farewells;
 和`phrases::english::farewells::goodbye()`中，
 内部代码的组织结构不能反映我们的扩展接口。
 
-默认情况下，`use`声明表示从根`crate`开始的绝对路径。
+默认情况下，`use`声明表示从根包装箱开始的绝对路径。
 此外，我们可以使用`use self::`表示相对于当前模块的位置，
-`use super::`表示当前位置的上一级，以`::`为前缀的路径表示根`crate`路径。
+`use super::`表示当前位置的上一级，以`::`为前缀的路径表示根包装箱路径。
 
 ```rust
 use foo::baz::foobaz; // foo is at the root of the crate
@@ -166,21 +166,27 @@ mod foo {
 
 ### 属性
 
-在Rust中，属性 (attribute) 是应用于`crate`、模块或者条目的元数据 (metadata)，
+在Rust中，属性 (attribute) 是应用于包装箱、模块或者条目的元数据 (metadata)，
 主要用于：
 
 * 实现条件编译 (conditional compilation)
-* 设置`crate`名字、版本以及类型
+* 设置包装箱名字、版本以及类型
 * 取消可疑代码的警告
 * 设置编译器选项
 * 链接外部库
 * 标记测试函数
 
-属性有两种语法：`#![crate_attribute]`应用于整个`crate`，
+属性有两种语法：`#![crate_attribute]`应用于整个包装箱，
 而`#[crate_attribute]`应用于紧邻的一个模块或者条目。
 属性的参数也有三种不同的形式：
 
 * `#[attribute = "value"]`
 * `#[attribute(key = "value")]`
 * `#[attribute(value)]`
+
+下面列举几个经常用到的属性：
+
+* `#[path="foo.rs"]`用于设置一个模块需要载入的文件路径。
+* `#[allow(dead_code)]`用于取消对死代码的默认lint检查。
+* `#[derive(PartialEq, Clone)]`用于自动推导`PartialEq`和`Clone`这两个特性的实现。
 

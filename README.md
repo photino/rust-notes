@@ -8,8 +8,9 @@
 * [模块系统](module-system.md)
 * [程序测试](program-testing.md)
 * [内存安全](memory-safety.md)
-* [编程范式](programming-paradigm.md)
+* [编程范式](programming-paradigms.md)
 * [高级主题](advanced-topics.md)
+* [代码片段](code-snippets.md)
 
 ### 参考资料
 
