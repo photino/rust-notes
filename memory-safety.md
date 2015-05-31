@@ -86,14 +86,14 @@ fn main() {
 从而确保对`i32`的引用比对`Foo`的引用具有更长的生存期，避免悬空指针 
 (dangling pointer) 的问题。
 
-Rust预定义的`'static`具有和整个程序相同的生存期，主要用于声明全局变量。
+Rust预定义的`'static`具有和整个程序运行时相同的生存期，主要用于声明全局变量。
 由`const`关键字定义的常量也具有`'static`生存期，但是它们会被内联到使用它们的地方。
 
 ```rust
 const N: i32 = 5;
 
 static NUM: i32 = 5;
-static NAME: &'static str = "Sophon";
+static NAME: &'static str = "David";
 ```
 其中类型标注是不可省略的，并且必须使用常量表达式初始化。
 对于通过`static mut`绑定的变量，则只能在`unsafe`代码块里使用。

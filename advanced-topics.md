@@ -1,19 +1,5 @@
 ## 高级主题
 
-### 裸指针
-
-在Rust中，`*const T`和`*mut T`被称为裸指针 (raw pointer)。
-创建一个裸指针是安全的，但是解引用它是不安全的，必须放到`unsafe`块里：
-
-```rust
-let x = 5;
-let raw = &x as *const i32;
-
-let points_at = unsafe { *raw };
-
-println!("raw points at {}", points_at);
-```
-
 ### 外部函数接口
 
 在Rust中，通过外部函数接口 (foreign function interface) 可以直接调用C语言库：

@@ -29,14 +29,20 @@ assert_eq!(5, num);
 Rust 还支持高阶函数 (high order function)，允许把闭包作为参数来生成新的函数：
 
 ```rust
-fn factory() -> Box<Fn(i32) -> i32> {
-    let num = 5;
-
-    Box::new(move |x| x + num)
+fn apply(f: &Fn(f64) -> f64, x: f64) -> f64 {
+    f(1.0) + x
 }
-let f = factory();
 
-assert_eq!(6, f(1));
+fn factory(x: f64) -> Box<Fn(f64) -> f64> {
+    Box::new(move |y| x + y)
+}
+
+let f = factory(2.0);
+let g = &(*f);
+
+assert_eq!(5.0, f(3.0));
+assert_eq!(5.0, g(3.0));
+assert_eq!(6.0, apply(g, 3.0));
 ```
 
 ### 面向对象编程
