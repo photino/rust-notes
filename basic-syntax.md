@@ -60,7 +60,7 @@ let mut string = str.to_string();
 // arrays and slices
 let a = [0, 1, 2, 3, 4];
 let middle = &a[1..4];
-let mut ten_zeros = [0; 10];
+let mut ten_zeros: [i64; 10] = [0; 10];
 
 // tuples
 let tuple: (i32, &str) = (50, "hello");
@@ -136,14 +136,15 @@ let empty = Null;
 一个包含`..`的`struct`可以用来从其它结构体拷贝一些值：
 
 ```rust
+#[derive(Default)]
 struct Point3d {
     x: i32,
     y: i32,
     z: i32,
 }
 
-let origin = Point3d { x: 0, y: 0, z: 0 };
-let point = Point3d { y: 1, .. origin };
+let origin = Point3d::default();
+let point = Point3d { y: 1, ..origin };
 ```
 
 需要注意，Rust在语言级别不支持域可变性 (field mutability)，所以不能这么写：

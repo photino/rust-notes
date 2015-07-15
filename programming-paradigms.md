@@ -191,6 +191,7 @@ Trait::method(args);
 * `Borrow`用于创建一个数据结构时把拥有和借用的值看作等同。
 * `AsRef`用于在泛型中把一个值转换为引用。
 * `Deref<Target=T>`用于把`&U`类型的值自动转换为`&T`类型。
+* `Iterator`用于在集合 (collection) 和惰性值生成器 (lazy value generator) 上实现迭代器。
 
 ### 元编程
 
@@ -225,10 +226,11 @@ let float_origin = Point { x: 0.0, y: 0.0 };
 ```
 
 对于多态函数，存在两种派分 (dispatch) 机制：静态派分和动态派分。
-对于前者，Rust会生成适用于指定类型的特殊函数，然后在被调用的位置进行替换，
-这样的好处是允许函数被内联调用，运行比较快，但是会导致代码膨胀 (code bloat)；
-对于后者，需要引入特性对象 (trait object) 来实现。特性对象`&Foo`具有和特性`Foo`相同的名称，
-通过转换 (casting) 或者强制转换 (coercing) 一个指向具体类型的指针来创建。
+前者类似于C++的模板，Rust会生成适用于指定类型的特殊函数，然后在被调用的位置进行替换，
+好处是允许函数被内联调用，运行比较快，但是会导致代码膨胀 (code bloat)；
+后者类似于Java或Go的`interface`，Rust通过引入特性对象 (trait object) 来实现，
+在运行期查找虚表 (vtable) 来选择执行的方法。特性对象`&Foo`具有和特性`Foo`相同的名称，
+通过转换 (casting) 或者强制多态化 (coercing) 一个指向具体类型的指针来创建。
 
 当然，特性也可以接受泛型参数。但是，往往更好的处理方式是使用关联类型 (associated type)：
 
