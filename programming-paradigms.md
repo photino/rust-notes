@@ -185,7 +185,7 @@ Trait::method(args);
 * 带有特性约束的泛型函数使用单态 (monomorphization)，
 所以它是静态派分的 (statically dispatched)。
 
-下面列举几个非常有用的特性：
+下面列举几个非常有用的[标准库特性](https://llogiq.github.io/2015/07/30/traits.html)：
 
 * `Drop`提供了当一个值退出作用域后执行代码的功能，它只有一个`drop(&mut self)`方法。
 * `Borrow`用于创建一个数据结构时把拥有和借用的值看作等同。
