@@ -15,7 +15,6 @@
 ### 参考资料
 
 * [The Rust Programming Language](http://doc.rust-lang.org/nightly/book/)
-* [The Advanced Rust Programming Language](https://doc.rust-lang.org/nightly/adv-book/)
 * [The Rustonomicon](https://doc.rust-lang.org/nightly/nomicon/)
 * [The Rust Reference](http://doc.rust-lang.org/nightly/reference.html)
 * [Rust by Example](http://rustbyexample.com/)

@@ -185,13 +185,18 @@ Trait::method(args);
 * 带有特性约束的泛型函数使用单态 (monomorphization)，
 所以它是静态派分的 (statically dispatched)。
 
-下面列举几个非常有用的[标准库特性](https://llogiq.github.io/2015/07/30/traits.html)：
+下面列举几个非常有用的标准库特性：
 
 * `Drop`提供了当一个值退出作用域后执行代码的功能，它只有一个`drop(&mut self)`方法。
 * `Borrow`用于创建一个数据结构时把拥有和借用的值看作等同。
 * `AsRef`用于在泛型中把一个值转换为引用。
 * `Deref<Target=T>`用于把`&U`类型的值自动转换为`&T`类型。
 * `Iterator`用于在集合 (collection) 和惰性值生成器 (lazy value generator) 上实现迭代器。
+
+推荐阅读：
+* [Visualizing Rust's type-system](http://jadpole.github.io/rust/type-system/)
+* [Rust's Built-in Traits, the When, How & Why](https://llogiq.github.io/2015/07/30/traits.html)
+* [Effectively Using Iterators In Rust](http://hermanradtke.com/2015/06/22/effectively-using-iterators-in-rust.html)
 
 ### 元编程
 
