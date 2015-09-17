@@ -49,7 +49,11 @@ assert_eq!(6.0, apply(g, 3.0));
 
 Rust通过`impl`关键字在`struct`或者`trait`上实现方法调用语法 (method call syntax)。
 关联函数 (associated function) 的第一个参数通常为`self`参数，有3种变体：
-`self`，`&self`和`&mut self`。不含`self`参数的关联函数称为静态方法 (static method)。
+* `self`，允许实现者移动和修改对象，对应的闭包特性为`FnOnce`。
+* `&self`，既不允许实现者移动对象也不允许修改，对应的闭包特性为`Fn`。
+* `&mut self`，允许实现者修改对象但不允许移动，对应的闭包特性为`FnMut`。
+
+不含`self`参数的关联函数称为静态方法 (static method)。
 
 ```rust
 struct Circle {
@@ -131,8 +135,9 @@ fn foo<T: Clone, K: Clone + Debug>(x: T, y: K) {
 }
 
 fn bar<T, K>(x: T, y: K)
-    where T: Clone,
-          K: Clone + Debug {
+    where T: Clone, 
+          K: Clone + Debug
+{
     x.clone();
     y.clone();
     println!("{:?}", y);
@@ -180,7 +185,7 @@ Trait::method(args);
 
 关于实现特性的几条限制：
 
-* 如果特性并不定义在当前作用域内，它就不能被实现。
+* 如果一个特性不在当前作用域内，它就不能被实现。
 * 不管是特性还是`impl`，都只能在当前的包装箱内起作用。
 * 带有特性约束的泛型函数使用单态 (monomorphization)，
 所以它是静态派分的 (statically dispatched)。
@@ -192,11 +197,14 @@ Trait::method(args);
 * `AsRef`用于在泛型中把一个值转换为引用。
 * `Deref<Target=T>`用于把`&U`类型的值自动转换为`&T`类型。
 * `Iterator`用于在集合 (collection) 和惰性值生成器 (lazy value generator) 上实现迭代器。
+* `Sized`用于标记运行时长度固定的类型，而不定长的切片和特性必须放在指针后面使其运行时长度已知，
+比如`&[T]`和`Box<Trait>`。
 
 推荐阅读：
 * [Visualizing Rust's type-system](http://jadpole.github.io/rust/type-system/)
 * [Rust's Built-in Traits, the When, How & Why](https://llogiq.github.io/2015/07/30/traits.html)
 * [Effectively Using Iterators In Rust](http://hermanradtke.com/2015/06/22/effectively-using-iterators-in-rust.html)
+* [Finding Closure in Rust](http://huonw.github.io/blog/2015/05/finding-closure-in-rust/)
 
 ### 元编程
 

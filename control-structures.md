@@ -128,7 +128,7 @@ struct Point {
 let origin = Point { x: 0, y: 0 };
 
 match origin {
-    Point { x: x, .. } => println!("x is {}", x),
+    Point { x, .. } => println!("x is {}", x),
 }
 
 enum OptionalInt {

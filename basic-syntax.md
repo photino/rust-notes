@@ -87,6 +87,7 @@ let bar: fn(i32) -> i32 = foo;
 除非很有必要否则不要这么做。
 * 数组的长度是不可变的，动态的数组称为向量 (vector)，可以使用宏`vec!`创建。
 * 元组可以使用`==`和`!=`运算符来判断是否相同。
+* 不多于32个元素的数组和不多于12个元素的元组在值传递时是自动复制的。
 * Rust不提供原生类型之间的隐式转换，只能使用`as`关键字显式转换。
 * 可以使用`type`关键字定义某个类型的别名，并且应该采用驼峰命名法。
 
@@ -133,7 +134,7 @@ struct Null;
 let empty = Null;
 ```
 
-一个包含`..`的`struct`可以用来从其它结构体拷贝一些值：
+一个包含`..`的`struct`可以用来从其它结构体拷贝一些值或者在解构时忽略一些域：
 
 ```rust
 #[derive(Default)]
@@ -145,6 +146,7 @@ struct Point3d {
 
 let origin = Point3d::default();
 let point = Point3d { y: 1, ..origin };
+let Point3d { x: x0, y: y0, .. } = point;
 ```
 
 需要注意，Rust在语言级别不支持域可变性 (field mutability)，所以不能这么写：
