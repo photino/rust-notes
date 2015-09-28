@@ -29,25 +29,49 @@ assert_eq!(5, num);
 Rust 还支持高阶函数 (high order function)，允许把闭包作为参数来生成新的函数：
 
 ```rust
-fn apply(f: &Fn(f64) -> f64, x: f64) -> f64 {
-    f(1.0) + x
+fn add_one(x: i32) -> i32 { x + 1 }
+
+fn apply<F>(f: F, y: i32) -> i32
+    where F: Fn(i32) -> i32
+{
+    f(y) * y
 }
 
-fn factory(x: f64) -> Box<Fn(f64) -> f64> {
+fn factory(x: i32) -> Box<Fn(i32) -> i32> {
     Box::new(move |y| x + y)
 }
 
-let f = factory(2.0);
-let g = &(*f);
+fn main() {
+    let transform: fn(i32) -> i32 = add_one;
+    let f0 = add_one(2i32) * 2;
+    let f1 = apply(add_one, 2);
+    let f2 = apply(transform, 2);
+    println!("{}, {}, {}", f0, f1, f2);
 
-assert_eq!(5.0, f(3.0));
-assert_eq!(5.0, g(3.0));
-assert_eq!(6.0, apply(g, 3.0));
+    let closure = |x: i32| x + 1;
+    let c0 = closure(2i32) * 2;
+    let c1 = apply(closure, 2);
+    let c2 = apply(|x| x + 1, 2);
+    println!("{}, {}, {}", c0, c1, c2);
+
+    let box_fn = factory(1i32);
+    let b0 = box_fn(2i32) * 2;
+    let b1 = (*box_fn)(2i32) * 2;
+    let b2 = (&box_fn)(2i32) * 2;
+    println!("{}, {}, {}", b0, b1, b2);
+
+    let add_num = &(*box_fn);
+    let translate: &Fn(i32) -> i32 = add_num;
+    let z0 = add_num(2i32) * 2;
+    let z1 = apply(add_num, 2);
+    let z2 = apply(translate, 2);
+    println!("{}, {}, {}", z0, z1, z2);
+}
 ```
 
 ### 面向对象编程
 
-Rust通过`impl`关键字在`struct`或者`trait`上实现方法调用语法 (method call syntax)。
+Rust通过`impl`关键字在`struct`、`enum`或者`trait`上实现方法调用语法 (method call syntax)。
 关联函数 (associated function) 的第一个参数通常为`self`参数，有3种变体：
 * `self`，允许实现者移动和修改对象，对应的闭包特性为`FnOnce`。
 * `&self`，既不允许实现者移动对象也不允许修改，对应的闭包特性为`Fn`。
@@ -199,12 +223,6 @@ Trait::method(args);
 * `Iterator`用于在集合 (collection) 和惰性值生成器 (lazy value generator) 上实现迭代器。
 * `Sized`用于标记运行时长度固定的类型，而不定长的切片和特性必须放在指针后面使其运行时长度已知，
 比如`&[T]`和`Box<Trait>`。
-
-推荐阅读：
-* [Visualizing Rust's type-system](http://jadpole.github.io/rust/type-system/)
-* [Rust's Built-in Traits, the When, How & Why](https://llogiq.github.io/2015/07/30/traits.html)
-* [Effectively Using Iterators In Rust](http://hermanradtke.com/2015/06/22/effectively-using-iterators-in-rust.html)
-* [Finding Closure in Rust](http://huonw.github.io/blog/2015/05/finding-closure-in-rust/)
 
 ### 元编程
 
