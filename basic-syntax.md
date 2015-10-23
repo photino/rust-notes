@@ -124,6 +124,11 @@ struct Color(u8, u8, u8);
 let android_green = Color(0xa4, 0xc6, 0x39);
 let (red, green, blue) = android_green;
 
+// A tuple struct’s constructors can be used as functions.
+struct Digit(i32);
+let v = vec![0, 1, 2];
+let d: Vec<Digit> = v.into_iter().map(Digit).collect();
+
 // newtype: a tuple struct with only one element
 struct Inches(i32);
 let length = Inches(10);
@@ -181,11 +186,14 @@ Rust有一个集合类型，称为枚举 (enum)，对于一个指定的名称有
 
 ```rust
 // enums
-enum Character {
-    Digit(i32),
-    Other,
+enum Message {
+    Quit,
+    ChangeColor(i32, i32, i32),
+    Move { x: i32, y: i32 },
+    Write(String),
 }
-let ten = Character::Digit(10);
+
+let x: Message = Message::Move { x: 3, y: 4 };
 ```
 
 与结构体一样，枚举中的元素默认不能使用关系运算符进行比较 (如`==`, `!=`, `>=`)，

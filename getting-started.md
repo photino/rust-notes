@@ -7,7 +7,7 @@
 在Ubuntu 14.04下安装最新版的Rust：
 
 ```shell
-$ curl -s https://static.rust-lang.org/rustup.sh | sudo sh
+$ curl -sSf https://static.rust-lang.org/rustup.sh | sh -s -- --channel=nightly
 ```
 
 为[Atom](https://atom.io/)编辑器安装Rust语法高亮支持：
@@ -84,7 +84,7 @@ fn main() {
 
 ### 代码规范
 
-可以参考[Rust风格指南](https://github.com/rust-lang/rust-guidelines)，
+可以参考[Rust风格指南](http://doc.rust-lang.org/nightly/style/)，
 这里简单强调几点：
 * 使用4个空格进行缩进。
 * 在单行的花括号内侧各使用一个空格。

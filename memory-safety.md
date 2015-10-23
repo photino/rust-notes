@@ -7,7 +7,7 @@ Rust推崇安全与速度至上，它没有垃圾回收机制，却成功实现�
 在Rust中，所有权 (ownership) 系统是零成本抽象 (zero-cost abstraction) 的一个主要例子。
 对所有权的分析是在编译阶段就完成的，并不带来任何运行时成本 (run-time cost)。
 默认情况下，Rust是在栈 (stack) 上分配内存，对栈上空间变量的再赋值都是复制的。
-如果要在堆 (heap) 中分配，必须使用`box`来构造：
+如果要在堆 (heap) 中分配，必须使用盒子来构造：
 
 ```rust
 let x = Box::new(5);

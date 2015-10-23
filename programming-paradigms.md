@@ -71,7 +71,7 @@ fn main() {
 
 ### 面向对象编程
 
-Rust通过`impl`关键字在`struct`、`enum`或者`trait`上实现方法调用语法 (method call syntax)。
+Rust通过`impl`关键字在`struct`、`enum`或者`trait`对象上实现方法调用语法 (method call syntax)。
 关联函数 (associated function) 的第一个参数通常为`self`参数，有3种变体：
 * `self`，允许实现者移动和修改对象，对应的闭包特性为`FnOnce`。
 * `&self`，既不允许实现者移动对象也不允许修改，对应的闭包特性为`Fn`。
