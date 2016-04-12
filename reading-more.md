@@ -5,4 +5,5 @@
 * (2015-07-31) Jessy Pelletier: [Visualizing Rust's type-system](http://jadpole.github.io/rust/type-system/)
 * (2015-07-30) Llogiq: [Rust's Built-in Traits, the When, How & Why](https://llogiq.github.io/2015/07/30/traits.html)
 * (2015-06-22) Herman J. Radtke III: [Effectively Using Iterators In Rust](http://hermanradtke.com/2015/06/22/effectively-using-iterators-in-rust.html)
+* (2015-05-17) Alexis Beingessner: [Learning Rust With Entirely Too Many Linked Lists](http://cglab.ca/~abeinges/blah/too-many-lists/book/)
 * (2015-05-08) Huon Wilson: [Finding Closure in Rust](http://huonw.github.io/blog/2015/05/finding-closure-in-rust/)

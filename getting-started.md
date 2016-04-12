@@ -16,6 +16,8 @@ $ curl -sSf https://static.rust-lang.org/rustup.sh | sh -s -- --channel=nightly
 $ apm install language-rust
 ```
 
+如果需要一个IDE，推荐使用[Tokamak](https://github.com/vertexclique/tokamak)。
+
 ### 编译流程
 
 使用[Cargo](https://crates.io/)创建`hello-world`项目：
