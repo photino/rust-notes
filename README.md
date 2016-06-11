@@ -18,6 +18,7 @@
 * [The Rust Reference](http://doc.rust-lang.org/nightly/reference.html)
 * [The Rustonomicon](https://doc.rust-lang.org/nightly/nomicon/)
 * [Rust by Example](http://rustbyexample.com/)
+* [This Week in Rust](https://this-week-in-rust.org/)
 
 ### 项目地址
 

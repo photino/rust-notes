@@ -182,7 +182,7 @@ trait Foo {
 }
 
 // inheritance
-trait FooBar : Foo {
+trait FooBar: Foo {
     fn foobar(&self);
 }
 
@@ -352,7 +352,7 @@ fn main() {
     println!("{}", handle.join().unwrap());
 }
 ```
-其中`thread::scoped()`方法接受一个闭包，它将在一个新线程中执行。
+其中`thread::spawn()`方法接受一个闭包，它将在一个新线程中执行。
 
 Rust尝试解决可变状态的共享问题，通过所有权系统来帮助排除数据竞争 (data race)：
 
