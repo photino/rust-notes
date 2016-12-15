@@ -86,7 +86,7 @@ fn main() {
 
 ### 代码规范
 
-可以参考[Rust风格指南](http://doc.rust-lang.org/nightly/style/)，
+可以参考[Rust风格指南](https://doc.rust-lang.org/1.12.0/style/README.html)，
 这里简单强调几点：
 * 使用4个空格进行缩进。
 * 在单行的花括号内侧各使用一个空格。
